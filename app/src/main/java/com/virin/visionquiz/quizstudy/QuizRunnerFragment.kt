@@ -905,7 +905,7 @@ class QuizRunnerFragment : BaseQuizFragment() {
     }
 
     private fun optionOrderFor(quiz: Quiz): List<Int> {
-        return if (optionShuffleEnabled) {
+        return if (shouldShuffleOptions(quiz, optionShuffleEnabled)) {
             shuffledOptionOrders.getOrPut(quiz.id) { quiz.options.indices.shuffled() }
         } else {
             quiz.options.indices.toList()

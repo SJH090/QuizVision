@@ -3,7 +3,13 @@ package com.virin.visionquiz.quizstudy
 import com.virin.visionquiz.dao.PracticeSession
 import com.virin.visionquiz.dao.Quiz
 import com.virin.visionquiz.dao.QuizStudyMode
+import com.virin.visionquiz.dao.QuizUiType
+import com.virin.visionquiz.dao.inferredUiType
 import com.virin.visionquiz.dao.isSupportedStudyType
+
+internal fun shouldShuffleOptions(quiz: Quiz, optionShuffleEnabled: Boolean): Boolean {
+    return optionShuffleEnabled && quiz.inferredUiType() != QuizUiType.JUDGEMENT
+}
 
 internal data class PreparedQuizRunnerSession(
     val quizzes: List<Quiz>,

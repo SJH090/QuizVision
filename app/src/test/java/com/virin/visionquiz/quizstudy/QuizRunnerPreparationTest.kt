@@ -11,6 +11,27 @@ import org.junit.Test
 class QuizRunnerPreparationTest {
 
     @Test
+    fun optionShuffleDoesNotApplyToJudgementQuestions() {
+        val judgement = Quiz(
+            id = 1,
+            prompt = "Judgement",
+            options = listOf("是", "否"),
+            answer = setOf(0),
+            isMultipleChoice = false,
+            questionType = QuizUiType.JUDGEMENT.label,
+            libraryId = 1
+        )
+
+        assertEquals(false, shouldShuffleOptions(judgement, optionShuffleEnabled = true))
+    }
+
+    @Test
+    fun optionShuffleStillAppliesToChoiceQuestions() {
+        assertEquals(true, shouldShuffleOptions(quiz(id = 1), optionShuffleEnabled = true))
+        assertEquals(false, shouldShuffleOptions(quiz(id = 1), optionShuffleEnabled = false))
+    }
+
+    @Test
     fun reviewPreparationUsesSelectedOrderAndFiltersUnsupportedQuizzes() {
         val prepared = prepareQuizRunnerSession(
             source = listOf(
